@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8vf2p3iejjr8"]
+[gd_scene load_steps=7 format=3 uid="uid://b8vf2p3iejjr8"]
 
 [ext_resource type="Script" uid="uid://bmcgu073q7url" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://h7fxc51yoyav" path="res://scenes/weapon.tscn" id="2_g2els"]
 
 [sub_resource type="Gradient" id="Gradient_u8vuu"]
 offsets = PackedFloat32Array(0, 0.35, 0.58, 0.9, 1)
@@ -17,9 +18,12 @@ fill_to = Vector2(1, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 5.0
 
-[node name="Player" type="CharacterBody2D"]
-motion_mode = 1
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(4, 9.5)
+
+[node name="Player" type="RigidBody2D"]
 script = ExtResource("1_3vyb7")
+weapon_scene = ExtResource("2_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -30,3 +34,40 @@ shape = SubResource("CircleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="RHand" type="RigidBody2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.5708
+
+[node name="HAND1" type="Polygon2D" parent="RHand"]
+position = Vector2(1, 3)
+rotation = -0.172788
+polygon = PackedVector2Array(-0.0261774, 0.999657, 0.97348, 1.02583, 0.999999, -8, -9.53674e-07, -8)
+
+[node name="HAND2" type="Polygon2D" parent="RHand"]
+position = Vector2(-2, 3)
+rotation = 0.172788
+polygon = PackedVector2Array(-0.0261774, 0.999657, 0.97348, 1.02583, 0.999999, -8, -9.53674e-07, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RHand"]
+visible = false
+position = Vector2(-8.74228e-08, -2)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="Weapon" parent="." instance=ExtResource("2_g2els")]
+position = Vector2(14, 0)
+rotation = 1.5708
+
+[node name="HandsToBody" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(4, 0)
+node_a = NodePath("..")
+node_b = NodePath("../RHand")
+
+[node name="HandsToSword" type="PinJoint2D" parent="."]
+visible = false
+position = Vector2(14, 0)
+node_a = NodePath("../RHand")
+node_b = NodePath("../Weapon")

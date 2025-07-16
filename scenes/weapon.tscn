@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://h7fxc51yoyav"]
+
+[ext_resource type="Script" uid="uid://bxgh5u5q28gvo" path="res://scripts/weapon.gd" id="1_xasec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxn4k"]
+size = Vector2(4, 14)
+
+[node name="Weapon" type="RigidBody2D"]
+script = ExtResource("1_xasec")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, -7)
+polygon = PackedVector2Array(0, -10, -2, -6, -2, 4, -4, 4, -4, 5, -1, 5, -1, 10, 1, 10, 1, 5, 4, 5, 4, 4, 2, 4, 2, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_uxn4k")
