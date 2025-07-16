@@ -19,3 +19,4 @@ position = Vector2(59, 212)
 
 [node name="Movable2" parent="." instance=ExtResource("3_sugp2")]
 position = Vector2(108, 247)
+heigth = 32.0
