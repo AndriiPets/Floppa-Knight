@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://bmcgu073q7url" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://h7fxc51yoyav" path="res://scenes/weapon.tscn" id="2_g2els"]
 
-[sub_resource type="Gradient" id="Gradient_u8vuu"]
+[sub_resource type="Gradient" id="Gradient_g2els"]
 offsets = PackedFloat32Array(0, 0.35, 0.58, 0.9, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0.839216, 0.454902, 1, 1, 0.839216, 0.454902, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3vyb7"]
-gradient = SubResource("Gradient_u8vuu")
+gradient = SubResource("Gradient_g2els")
 width = 14
 height = 14
 fill = 1
