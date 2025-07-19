@@ -1,9 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://h7fxc51yoyav"]
+[gd_scene load_steps=7 format=3 uid="uid://h7fxc51yoyav"]
 
 [ext_resource type="Script" uid="uid://bxgh5u5q28gvo" path="res://scripts/weapon.gd" id="1_xasec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxn4k"]
 size = Vector2(4, 14)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xasec"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_uxn4k"]
+offsets = PackedFloat32Array(0, 0.503817, 1)
+colors = PackedColorArray(1, 1, 0.756863, 1, 1, 1, 0.152941, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bmw2d"]
+gradient = SubResource("Gradient_uxn4k")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8fp1k"]
+particle_flag_disable_z = true
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
 
 [node name="Weapon" type="RigidBody2D"]
 script = ExtResource("1_xasec")
@@ -15,3 +41,16 @@ polygon = PackedVector2Array(0, -10, -2, -6, -2, 4, -4, 4, -4, 5, -1, 5, -1, 10,
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_uxn4k")
+
+[node name="SparkParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+z_index = 5
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_xasec")
+emitting = false
+texture = SubResource("GradientTexture2D_bmw2d")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_8fp1k")

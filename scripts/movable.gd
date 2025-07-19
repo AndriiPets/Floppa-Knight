@@ -8,6 +8,7 @@ extends RigidBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("movables")
 	collision.shape = collision.shape.duplicate()
 	
 	obj_shape.scale = Vector2(width / 8, heigth / 8)
