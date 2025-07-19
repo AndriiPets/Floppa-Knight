@@ -14,11 +14,13 @@ const MIN_IMPACT_SPEED := 40.0
 @onready var nav_timer := Timer.new()
 @onready var inv_timer := Timer.new()
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if not player:
 		print("Player node not found")
 		return
+
 	add_to_group("enemies")
 
 	#PHYSICS
@@ -91,6 +93,7 @@ func splatter_blood(pos: Vector2, normal: Vector2) -> void:
 	particles.rotation = normal.angle()
 
 	particles.set_deferred("emitting", true)
+
 
 func update_target_location() -> void:
 	if player && global_position.distance_to(player.global_position) < detection_range:

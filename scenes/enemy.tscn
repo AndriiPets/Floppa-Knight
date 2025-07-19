@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=9 format=3 uid="uid://bylnuqmloum5e"]
+
 
 [ext_resource type="Script" uid="uid://ch7i1l2687xam" path="res://scripts/enemy.gd" id="1_7p1mj"]
 
@@ -16,6 +18,7 @@ fill_to = Vector2(1, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
 radius = 6.0
+
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7p1mj"]
 blend_mode = 1
@@ -56,6 +59,7 @@ shape = SubResource("CircleShape2D_5uy6h")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 unique_name_in_owner = true
 
+
 [node name="BloodSplatter" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
@@ -68,3 +72,4 @@ one_shot = true
 explosiveness = 0.8
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_c4w8v")
+
