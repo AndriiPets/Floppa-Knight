@@ -11,6 +11,7 @@ func _ready() -> void:
 	max_contacts_reported = 4
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for i in get_contact_count():
