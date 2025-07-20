@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8vf2p3iejjr8"]
+[gd_scene load_steps=9 format=3 uid="uid://b8vf2p3iejjr8"]
 
 [ext_resource type="Script" uid="uid://bmcgu073q7url" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://h7fxc51yoyav" path="res://scenes/weapon.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://pc01g7l2ijbe" path="res://scenes/light.tscn" id="3_qhqgy"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g2els"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_g2els"]
 offsets = PackedFloat32Array(0, 0.35, 0.58, 0.9, 1)
@@ -22,6 +26,7 @@ radius = 5.0
 size = Vector2(4, 9.5)
 
 [node name="Player" type="RigidBody2D"]
+material = SubResource("CanvasItemMaterial_g2els")
 script = ExtResource("1_3vyb7")
 weapon_scene = ExtResource("2_g2els")
 
@@ -71,3 +76,5 @@ visible = false
 position = Vector2(14, 0)
 node_a = NodePath("../RHand")
 node_b = NodePath("../Weapon")
+
+[node name="Light" parent="." instance=ExtResource("3_qhqgy")]

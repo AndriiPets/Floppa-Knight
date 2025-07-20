@@ -3,12 +3,13 @@ extends RigidBody2D
 @export_range(50.0, 500.0) var speed := 150.0
 @export var detection_range := 300.0
 @export var invulnerability_time := 0.3
+@export var blood_splatter_scene: PackedScene
+@export var health := 3
 
 const KNOCKBACK_FORCE := 100.0
-const MIN_IMPACT_SPEED := 40.0
+const MIN_IMPACT_SPEED := 30.0
 
 @onready var agent := %"NavigationAgent2D" as NavigationAgent2D
-@onready var particles := %"BloodSplatter" as GPUParticles2D
 @onready var player := get_tree().get_first_node_in_group("player") as RigidBody2D
 
 @onready var nav_timer := Timer.new()
@@ -29,18 +30,20 @@ func _ready() -> void:
 
 	#TIMERS
 	add_child(nav_timer)
-	inv_timer.wait_time = 0.5
 	nav_timer.timeout.connect(_on_navigation_timer_timeout)
 	nav_timer.start()
 
-	add_child(inv_timer)
+	inv_timer.wait_time = 1.0
 	inv_timer.one_shot = true
+	add_child(inv_timer)
 
 	agent.debug_enabled = true
 	update_target_location()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if inv_timer.time_left > 0:
+		return
 	if agent.is_navigation_finished():
 		return
 
@@ -74,8 +77,14 @@ func weapon_collision_response(weapon: RigidBody2D, pos: Vector2, normal: Vector
 		#print("too slow", weapon_speed)
 		return
 
-	print("enemy recieved damage")
-	splatter_blood(pos, normal)
+	##Hit connected damage recieved
+	health -= 1
+
+	if health <= 0:
+		print("enemy dead")
+
+	print("enemy recieved damage ", "health = ", health)
+	splatter_blood(pos, normal, health <= 0)
 	var direction = weapon.linear_velocity.normalized()
 	apply_central_impulse(direction * KNOCKBACK_FORCE)
 
@@ -85,10 +94,29 @@ func weapon_collision_response(weapon: RigidBody2D, pos: Vector2, normal: Vector
 func _draw() -> void:
 	draw_circle(global_position, detection_range, Color.TEAL)
 
-func splatter_blood(pos: Vector2, normal: Vector2) -> void:
+
+func splatter_blood(pos: Vector2, normal: Vector2, dead: bool = false) -> void:
+	##Particle setup
+	if not blood_splatter_scene:
+		print("blood scene not setup on the enemy")
+		return
+
 	print("drawing blood on the enemy")
-	particles.global_position = pos
-	particles.rotation = normal.angle()
+	var particles := blood_splatter_scene.instantiate() as GPUParticles2D
+
+	get_tree().current_scene.add_child(particles)
+
+	##Particle style
+	if dead:
+		particles.global_position = global_position
+		particles.amount = 30
+		particles.lifetime = 20
+		var mat := particles.process_material as ParticleProcessMaterial
+		mat.spread = 180
+		queue_free()
+	else:
+		particles.global_position = pos
+		particles.rotation = normal.angle()
 
 	particles.set_deferred("emitting", true)
 

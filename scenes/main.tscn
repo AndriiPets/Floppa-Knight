@@ -22,11 +22,20 @@ navigation_enabled = false
 position = Vector2(159, 228)
 
 [node name="Movable" parent="." instance=ExtResource("3_sugp2")]
-position = Vector2(59, 212)
+position = Vector2(116, 247)
 
 [node name="Movable2" parent="." instance=ExtResource("3_sugp2")]
-position = Vector2(108, 247)
+position = Vector2(152, 180)
 heigth = 32.0
+
+[node name="Movable3" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(123, 247)
+
+[node name="Movable4" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(116, 240)
+
+[node name="Movable5" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(123, 239)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 unique_name_in_owner = true
@@ -34,3 +43,6 @@ navigation_polygon = SubResource("NavigationPolygon_jyhfs")
 
 [node name="Enemy" parent="." instance=ExtResource("4_jyhfs")]
 position = Vector2(605, 48)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.141176, 0.160784, 0.231373, 1)

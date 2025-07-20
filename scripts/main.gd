@@ -13,7 +13,7 @@ func _ready() -> void:
     poly.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
     poly.source_geometry_group_name = "geometry"
 
-    NavigationServer2D.set_debug_enabled(true)
+    NavigationServer2D.set_debug_enabled(false)
     regenerate_navmesh()
 
 func regenerate_navmesh() -> void:

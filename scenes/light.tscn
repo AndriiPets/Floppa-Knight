@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://pc01g7l2ijbe"]
+
+[ext_resource type="Script" uid="uid://b87r4mqwf8w7e" path="res://scripts/light.gd" id="1_24oxn"]
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2e2gu"]
+gradient = SubResource("Gradient_tbgi4")
+width = 192
+height = 192
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ky1i4"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gr6e6"]
+gradient = SubResource("Gradient_ky1i4")
+width = 192
+height = 192
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Light" type="Node2D" node_paths=PackedStringArray("light_a", "light_b")]
+script = ExtResource("1_24oxn")
+light_a = NodePath("LightA")
+light_b = NodePath("LightB")
+
+[node name="LightA" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_2e2gu")
+
+[node name="LightB" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_gr6e6")
