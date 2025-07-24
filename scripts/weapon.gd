@@ -15,7 +15,7 @@ func _ready() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for i in get_contact_count():
 		var collider := state.get_contact_collider_object(i) as Node
-		if collider && (collider.is_in_group("geometry") || collider.is_in_group("movables")):
+		if collider && (collider.is_in_group("geometry") || collider.is_in_group("weapons")):
 			var loc_normal := state.get_contact_local_normal(i)
 			var world_normal := -loc_normal.rotated(global_rotation)
 			var world_point := state.get_contact_local_position(i)
@@ -25,9 +25,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			break
 
 func spawn_sparks(pos: Vector2, normal: Vector2) -> void:
-	print("spawning sparks")
+	#print("spawning sparks")
 	#particles.reparent(get_tree().current_scene, false)
-	
 	particles.global_position = pos
 	particles.rotation = normal.angle()
 

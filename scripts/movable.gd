@@ -1,7 +1,11 @@
 extends RigidBody2D
 
-@export_range(8, 80) var width := 8.0
-@export_range(8, 80) var heigth := 8.0
+enum FurnitureType {
+	Chair,
+	Table
+}
+
+@export var type: FurnitureType = FurnitureType.Chair
 
 @onready var obj_shape := %Shape as Node2D
 @onready var collision := %CollisionShape as CollisionShape2D
@@ -10,11 +14,26 @@ extends RigidBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("movables")
+
+	var width: float
+	var heigth: float
+	var base_mass = mass
+
+	match type:
+		FurnitureType.Chair:
+			width = 8.0
+			heigth = 8.0
+		FurnitureType.Table:
+			width = 8.0 * 4.0
+			heigth = 8.0 * 2.0
+			mass = base_mass * 10.0
 	#Scale sprite and collision shape
 	collision.shape = collision.shape.duplicate()
-	
+
+	#Sprite
 	obj_shape.scale = Vector2(width / 8, heigth / 8)
 
+	#Collision
 	var coll_shape := collision.shape as RectangleShape2D
 	if coll_shape:
 		coll_shape.size = Vector2(width, heigth)
